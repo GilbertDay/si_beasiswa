@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\DataFeed;
+use App\Models\Beasiswa;
 
 class DashboardController extends Controller
 {
@@ -17,8 +18,9 @@ class DashboardController extends Controller
     public function home()
     {
         $dataFeed = new DataFeed();
+        $beasiswas = Beasiswa::all();
 
-        return view('pages/home/home', compact('dataFeed'));
+        return view('pages/home/home', compact('dataFeed', 'beasiswas'));
     }
     public function pengajuanBeasiswa()
     {

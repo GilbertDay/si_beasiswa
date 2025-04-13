@@ -9,10 +9,12 @@
                 <x-input id="name" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
             </div>
 
-            <div>
-                <x-label for="email">{{ __('Email Address') }} <span class="text-red-500">*</span></x-label>
-                <x-input id="email" type="email" name="email" :value="old('email')" required />
-            </div>
+            <!-- NIM -->
+<div class="mt-4">
+    <x-label for="nim" value="{{ __('NIM') }}" />
+    <x-input id="nim" class="block mt-1 w-full" type="text" name="nim" :value="old('nim')" required autofocus />
+</div>
+
 
             <div>
                 <x-label for="password" value="{{ __('Password') }}" />

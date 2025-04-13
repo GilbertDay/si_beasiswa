@@ -17,6 +17,9 @@
                             <th class="p-2 w-1/2">
                                 <div class="font-bold text-left">Beasiswa</div>
                             </th>
+                            <th class="p-2 w-1/2">
+                                <div class="font-bold text-left">Jenis Beasiswa</div>
+                            </th>
                             <th class="p-2 w-1/4 ">
                                 <div class="font-bold text-start">Aksi</div>
                             </th>
@@ -25,15 +28,21 @@
                     <!-- Table body -->
                     <tbody class="text-sm font-medium divide-y divide-gray-100 dark:divide-gray-700/60">
                         <!-- Row -->
+                        @foreach ($beasiswas as $beasiswa)
                         <tr>
                             <td class="p-2 w-1/4">
                                 <div class="flex items-start">
-                                    <div class="text-gray-800 dark:text-gray-100">1</div>
+                                    <div class="text-gray-800 dark:text-gray-100">{{ $loop->iteration }}</div>
                                 </div>
                             </td>
                             <td class="p-2 w-1/4">
                                 <div class="flex items-start">
-                                    <div class="text-gray-800 dark:text-gray-100">Beasiswa Non Akademik</div>
+                                    <div class="text-gray-800 dark:text-gray-100">{{ $beasiswa->nama_beasiswa }}</div>
+                                </div>
+                            </td>
+                            <td class="p-2 w-1/4">
+                                <div class="flex items-start">
+                                    <div class="text-gray-800 dark:text-gray-100">{{ $beasiswa->jenis_beasiswa }}</div>
                                 </div>
                             </td>
                             <td class="p-2 w-1/4">
@@ -42,96 +51,7 @@
                                 </button>
                             </td>
                         </tr>
-                        <!-- Row -->
-                        <tr>
-                            <td class="p-2 w-1/4">
-                                <div class="flex items-start">
-                                    <div class="text-gray-800 dark:text-gray-100">2</div>
-                                </div>
-                            </td>
-                            <td class="p-2 w-1/4">
-                                <div class="flex items-start">
-                                    <div class="text-gray-800 dark:text-gray-100">Beasiswa KIP</div>
-                                </div>
-                            </td>
-                            <td class="p-2 w-1/4">
-                                <button class="bg-[#5452D7] hover:bg-[#4442c0] text-white px-4 py-2 rounded transition">
-                                    Check
-                                </button>
-                            </td>
-                        </tr>
-                        <!-- Row -->
-                        <tr>
-                            <td class="p-2 w-1/4">
-                                <div class="flex items-start">
-                                    <div class="text-gray-800 dark:text-gray-100">3</div>
-                                </div>
-                            </td>
-                            <td class="p-2 w-1/4">
-                                <div class="flex items-start">
-                                    <div class="text-gray-800 dark:text-gray-100">Beasiswa Pemerintah</div>
-                                </div>
-                            </td>
-                            <td class="p-2 w-1/4">
-                                <button class="bg-[#5452D7] hover:bg-[#4442c0] text-white px-4 py-2 rounded transition">
-                                    Check
-                                </button>
-                            </td>
-                        </tr>
-                        <!-- Row -->
-                        <tr>
-                            <td class="p-2 w-1/4">
-                                <div class="flex items-start">
-                                    <div class="text-gray-800 dark:text-gray-100">4</div>
-                                </div>
-                            </td>
-                            <td class="p-2 w-1/4">
-                                <div class="flex items-start">
-                                    <div class="text-gray-800 dark:text-gray-100">Beasiswa Kampus</div>
-                                </div>
-                            </td>
-                            <td class="p-2 w-1/4">
-                                <button class="bg-[#5452D7] hover:bg-[#4442c0] text-white px-4 py-2 rounded transition">
-                                    Check
-                                </button>
-                            </td>
-                        </tr>
-                        <!-- Row -->
-                        <tr>
-                            <td class="p-2 w-1/4">
-                                <div class="flex items-start">
-                                    <div class="text-gray-800 dark:text-gray-100">5</div>
-                                </div>
-                            </td>
-                            <td class="p-2 w-1/4">
-                                <div class="flex items-start">
-                                    <div class="text-gray-800 dark:text-gray-100">Beasiswa International</div>
-                                </div>
-                            </td>
-                            <td class="p-2 w-1/4">
-                                <button class="bg-[#5452D7] hover:bg-[#4442c0] text-white px-4 py-2 rounded transition">
-                                    Check
-                                </button>
-                            </td>
-                        </tr>
-                         <!-- Row -->
-                         <tr>
-                            <td class="p-2 w-1/4">
-                                <div class="flex items-start">
-                                    <div class="text-gray-800 dark:text-gray-100">6</div>
-                                </div>
-                            </td>
-                            <td class="p-2 w-1/4">
-                                <div class="flex items-start">
-                                    <div class="text-gray-800 dark:text-gray-100">Beasiswa Akademik</div>
-                                </div>
-                            </td>
-                            <td class="p-2 w-1/4">
-                                <button class="bg-[#5452D7] hover:bg-[#4442c0] text-white px-4 py-2 rounded transition">
-                                    Check
-                                </button>
-                            </td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
 

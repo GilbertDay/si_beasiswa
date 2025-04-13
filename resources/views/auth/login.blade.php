@@ -9,10 +9,12 @@
     <form method="POST" action="{{ route('login') }}">
         @csrf
         <div class="space-y-4">
+            <!-- NIM -->
             <div>
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" type="email" name="email" :value="old('email')" required autofocus />                
+                <x-label for="nim" value="{{ __('NIM') }}" />
+                <x-input id="nim" class="block mt-1 w-full" type="text" name="nim" :value="old('nim')" required autofocus />
             </div>
+
             <div>
                 <x-label for="password" value="{{ __('Password') }}" />
                 <x-input id="password" type="password" name="password" required autocomplete="current-password" />                
