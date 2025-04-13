@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('beasiswas', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('semester_id')->constrained()->onDelete('cascade');
             $table->string('nama_beasiswa');
-            $table->string('jenis_beasiswa');
-            $table->string('syarat_beasiswa');
+            $table->string('jenis');
+            $table->text('syarat');
             $table->timestamps();
         });
     }
