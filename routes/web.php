@@ -24,6 +24,15 @@ use App\Http\Controllers\CampaignController;
 
 Route::redirect('/', 'login');
 
+Route::get('/redirect-role', function () {
+    $user = auth()->user();
+
+    if ($user->role === 'admin') {
+        return redirect()->route('homeAdmin');
+    }
+
+    return redirect()->route('home');
+});
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     // Route for the getting the data feed
