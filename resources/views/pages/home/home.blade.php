@@ -46,7 +46,9 @@
                                 </div>
                             </td>
                             <td class="p-2 w-1/4">
-                                <button class="bg-[#5452D7] hover:bg-[#4442c0] text-white px-4 py-2 rounded transition">
+                                <button
+                                onclick="openModal()"
+                                class="bg-[#5452D7] hover:bg-[#4442c0] text-white px-4 py-2 rounded transition">
                                     Check
                                 </button>
                             </td>
@@ -58,4 +60,38 @@
             </div>
         </div>
     </div>
+    <!-- Modal -->
+    <div
+        id="modal"
+        class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden"
+    >
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-11/12 md:w-1/2">
+            <h2 class="text-2xl font-bold mb-4 text-center text-gray-800 dark:text-gray-100">Syarat & Ketentuan</h2>
+            <div class="text-gray-700 dark:text-gray-300 space-y-2">
+                <p>1. Mahasiswa aktif di universitas.</p>
+                <p>2. IPK minimal 3.00 setiap semester.</p>
+                <p>3. Tidak sedang menerima beasiswa lain.</p>
+                <p>4. Melengkapi dokumen administrasi yang diperlukan.</p>
+            </div>
+            <div class="flex justify-center mt-6">
+                <button
+                    onclick="closeModal()"
+                    class="bg-[#5452D7] hover:bg-[#4442c0] text-white px-6 py-2 rounded transition"
+                >
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script -->
+    <script>
+        function openModal() {
+            document.getElementById('modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+        }
+    </script>
 </x-app-layout>
