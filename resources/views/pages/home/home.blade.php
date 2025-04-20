@@ -42,7 +42,7 @@
                             </td>
                             <td class="p-2 w-1/4">
                                 <div class="flex items-start">
-                                    <div class="text-gray-800 dark:text-gray-100">{{ $beasiswa->jenis_beasiswa }}</div>
+                                    <div class="text-gray-800 dark:text-gray-100">{{ $beasiswa->jenis }}</div>
                                 </div>
                             </td>
                             <td class="p-2 w-1/4">

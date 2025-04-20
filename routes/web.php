@@ -52,6 +52,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     //Pengajuan Beasiswa
     Route::post('/dashboard/pengajuan-beasiswa', [PengajuanController::class, 'addPengajuanBeasiswa'])->name('addPengajuanBeasiswa');
+    Route::get('/updatePengajuan/{text}/{id}', [PengajuanController::class, 'updatePengajuan'])->name('updatePengajuan');
 
     // Route::get('/dashboard/analytics', [DashboardController::class, 'analytics'])->name('analytics');
     // Route::get('/dashboard/fintech', [DashboardController::class, 'fintech'])->name('fintech');

@@ -58,4 +58,18 @@ class PengajuanController extends Controller
 
         return redirect()->back()->with('success', 'Pengajuan beasiswa berhasil ditambahkan');
     }
+
+    public function updatePengajuan(Request $request){
+
+        $tanggalSekarang = date('YmdHis');
+        $pengajuan = Pengajuan::with(['user', 'beasiswa', 'userDocument'])->find($request->id);
+
+        $nom_terima = "PENGJ" . $tanggalSekarang . $pengajuan->user->NIM;
+
+        $pengajuan->nom_terima = $nom_terima;
+        $pengajuan->status = $request->text === 'acc' ? 'accepted' : 'rejected';
+
+        $pengajuan->save();
+        return redirect()->back()->with('success', 'Pengajuan beasiswa berhasil diupdate');
+    }
 }
