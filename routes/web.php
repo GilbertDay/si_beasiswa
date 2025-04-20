@@ -11,6 +11,8 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\CampaignController;
 
+use App\Http\Controllers\PengajuanController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,6 +48,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/admin/kategori-beasiswa', [DashboardController::class, 'kategoriBeasiswa'])->name('kategoriBeasiswa');
     Route::get('/admin/daftar-pengajuan', [DashboardController::class, 'daftarPengajuan'])->name('daftarPengajuan');
     Route::get('/admin/verifikasi-dokumen', [DashboardController::class, 'verifikasiDokumen'])->name('verifikasiDokumen');
+
+
+    //Pengajuan Beasiswa
+    Route::post('/dashboard/pengajuan-beasiswa', [PengajuanController::class, 'addPengajuanBeasiswa'])->name('addPengajuanBeasiswa');
 
     // Route::get('/dashboard/analytics', [DashboardController::class, 'analytics'])->name('analytics');
     // Route::get('/dashboard/fintech', [DashboardController::class, 'fintech'])->name('fintech');

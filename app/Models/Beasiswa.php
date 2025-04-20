@@ -9,4 +9,7 @@ class Beasiswa extends Model
 {
     /** @use HasFactory<\Database\Factories\BeasiswaFactory> */
     use HasFactory;
+
+    protected $table = 'beasiswas';
+
 }

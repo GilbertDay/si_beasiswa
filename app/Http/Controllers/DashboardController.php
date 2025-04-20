@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\DataFeed;
 use App\Models\Beasiswa;
+use App\Models\Pengajuan;
 
 class DashboardController extends Controller
 {
@@ -17,16 +18,16 @@ class DashboardController extends Controller
 
     public function home()
     {
-        $dataFeed = new DataFeed();
-        $beasiswas = Beasiswa::all();
 
-        return view('pages/home/home', compact('dataFeed', 'beasiswas'));
+        $beasiswas = Beasiswa::all();
+        
+        return view('pages/home/home', compact('beasiswas'));
     }
     public function pengajuanBeasiswa()
     {
-        $dataFeed = new DataFeed();
+        $beasiswas = Beasiswa::all();
 
-        return view('pages/pengajuan-beasiswa/pengajuan-beasiswa', compact('dataFeed'));
+        return view('pages/pengajuan-beasiswa/pengajuan-beasiswa', compact('beasiswas'));
     }
     public function pengumuman()
     {
@@ -49,9 +50,10 @@ class DashboardController extends Controller
     }
     public function daftarPengajuan()
     {
-        $dataFeed = new DataFeed();
-
-        return view('admin/daftar/daftarPengajuan', compact('dataFeed'));
+        // $pengajuan = Pengajuan::with(['user', 'beasiswa'])->get();
+        $pengajuan = Pengajuan::with(['user', 'beasiswa', 'userDocument'])->get();
+        // dd($pengajuan);
+        return view('admin/daftar/daftarPengajuan', compact('pengajuan'));
     }
     public function verifikasiDokumen()
     {

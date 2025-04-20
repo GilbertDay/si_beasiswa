@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('beasiswa_id')->constrained()->onDelete('cascade');
             $table->string('nom_pengajuan');
-            $table->string('nom_terima');
+            $table->string('nom_terima')->nullable();
             $table->string('smtr_pengajuan');
             $table->date('tgl_pengajuan');
             $table->string('status');

@@ -26,10 +26,13 @@ class UserSeeder extends Seeder
         ]);
 
         User::create([
-            'name' => 'Mahasiswa',
+            'name' => 'Elseva',
             'NIM' => '72200390',
             'role' => 'mahasiswa',
             'no_hp' => '082134923123',
+            'jurusan' => 'Sistem Informasi',
+            'total_sks' => '120',
+            'jenis_kelamin' => 'Pria',
             'email_verified_at' => now(),
             'password' => Hash::make('user123'),
             'remember_token' => Str::random(10),

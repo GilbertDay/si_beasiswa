@@ -20,25 +20,32 @@
                     <!-- Table body -->
                     <tbody class="text-sm font-medium divide-y divide-gray-100 dark:divide-gray-700/60">
                         <!-- Row -->
+                        @foreach ($pengajuan as $item)
                         <tr>
                             <td class="p-2 w-1/4">
-                                <div class="text-start text-gray-500">Citra Lestari</div>
+                                <div class="text-start text-gray-500">{{ $item->user->name }}</div>
                             </td>
                             <td class="p-2 w-1/4">
-                                <div class="text-start text-gray-500">Beasiswa Prestasi</div>
+                                <div class="text-start text-gray-500">{{ $item->beasiswa->nama_beasiswa }}</div>
                             </td>
                             <td class="p-2 w-1/4">
-                                <div class="text-start text-gray-500">2025-04-01</div>
+                                <div class="text-start text-gray-500">{{ $item->tgl_pengajuan }}</div>
                             </td>
                             <td class="p-2 w-1/4">
-                                <div class="text-start text-gray-500">dokumen.pdf</div>
+                            @if ($item->userDocument)
+                            <a href="{{ asset('storage/berkas/' . $item->userDocument->deskripsi) }}" target="_blank">
+                                {{ $item->userDocument->deskripsi }}
+                            </a>
+                            @endif
+
                             </td>
                             <td class="p-2 w-1/4">
                                 <span class="inline-block px-3 py-1 text-xs font-semibold text-yellow-800 bg-yellow-100 rounded-full">Diproses</span>
                             </td>
                         </tr>
-                        <!-- Row -->
-                        <tr>
+                        @endforeach
+
+                        <!-- <tr>
                             <td class="p-2 w-1/4">
                                 <div class="text-start text-gray-500">Andi Wijaya</div>
                             </td>
@@ -54,9 +61,9 @@
                             <td class="p-2 w-1/4">
                                 <span class="inline-block px-3 py-1 text-xs font-semibold text-green-800 bg-green-100 rounded-full">Diterima</span>
                             </td>
-                        </tr>
+                        </tr> -->
                         <!-- Row -->
-                        <tr>
+                        <!-- <tr>
                             <td class="p-2 w-1/4">
                                 <div class="text-start text-gray-500">Andi Wijaya</div>
                             </td>
@@ -73,7 +80,7 @@
                                 <span class="inline-block px-3 py-1 text-xs font-semibold text-red-800 bg-red-100 rounded-full">Ditolak</span>
 
                             </td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
                  <!-- Buttons -->
