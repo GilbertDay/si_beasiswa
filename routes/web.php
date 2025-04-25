@@ -10,7 +10,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\CampaignController;
-
+use App\Http\Controllers\BeasiswaController;
 use App\Http\Controllers\PengajuanController;
 
 /*
@@ -53,6 +53,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     //Pengajuan Beasiswa
     Route::post('/dashboard/pengajuan-beasiswa', [PengajuanController::class, 'addPengajuanBeasiswa'])->name('addPengajuanBeasiswa');
     Route::get('/updatePengajuan/{text}/{id}', [PengajuanController::class, 'updatePengajuan'])->name('updatePengajuan');
+
+    //Kategori Beasiswa
+    Route::post('/admin/kategori-beasiswa', [BeasiswaController::class, 'addKategoriBeasiswa'])->name('addKategoriBeasiswa');
+    Route::post('/updateKategori/{id}', [BeasiswaController::class, 'updateKategoriBeasiswa'])->name('updateKategoriBeasiswa');
+    Route::delete('/deleteKategori/{id}', [BeasiswaController::class, 'deleteKategoriBeasiswa'])->name('deleteKategoriBeasiswa');
 
     // Route::get('/dashboard/analytics', [DashboardController::class, 'analytics'])->name('analytics');
     // Route::get('/dashboard/fintech', [DashboardController::class, 'fintech'])->name('fintech');

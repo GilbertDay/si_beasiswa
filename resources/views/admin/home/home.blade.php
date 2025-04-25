@@ -25,7 +25,7 @@
                                 </div>
                             </td>
                             <td class="p-2 w-1/4">
-                                <div class="text-start text-gray-500">500</div>
+                                <div class="text-start text-gray-500">{{ $mahasiswas }}</div>
                             </td>
                         </tr>
                         <!-- Row -->
@@ -36,7 +36,7 @@
                                 </div>
                             </td>
                             <td class="p-2 w-1/4">
-                                <div class="text-start text-gray-500">10</div>
+                                <div class="text-start text-gray-500">{{ $beasiswas }}</div>
                             </td>
                         </tr>
                         <!-- Row -->
@@ -47,7 +47,7 @@
                                 </div>
                             </td>
                             <td class="p-2 w-1/4">
-                                <div class="text-start text-gray-500">250</div>
+                                <div class="text-start text-gray-500">{{ $pengajuan }}</div>
                             </td>
                         </tr>
                         <!-- Row -->
@@ -58,7 +58,7 @@
                                 </div>
                             </td>
                             <td class="p-2 w-1/4">
-                                <div class="text-start text-gray-500">100</div>
+                                <div class="text-start text-gray-500">{{ $pengajuanDiterima }}</div>
                             </td>
                         </tr>
                         <!-- Row -->
@@ -69,7 +69,7 @@
                                 </div>
                             </td>
                             <td class="p-2 w-1/4">
-                                <div class="text-start text-gray-500">50</div>
+                                <div class="text-start text-gray-500">{{ $pengajuanDitolak }}</div>
                             </td>
                         </tr>
                          <!-- Row -->
@@ -80,18 +80,7 @@
                                 </div>
                             </td>
                             <td class="p-2 w-1/4">
-                                <div class="text-start text-gray-500">100</div>
-                            </td>
-                        </tr>
-                         <!-- Row -->
-                         <tr>
-                            <td class="p-2 w-1/4">
-                                <div class="flex items-start">
-                                    <div class="text-gray-800 dark:text-gray-800 font-bold">Total Dana Dicairkan</div>
-                                </div>
-                            </td>
-                            <td class="p-2 w-1/4">
-                                <div class="text-start text-gray-500 font-bold">Rp. 500.000.000</div>
+                                <div class="text-start text-gray-500">{{ $pengajuanDiProses }}</div>
                             </td>
                         </tr>
                          <!-- Row opsi -->

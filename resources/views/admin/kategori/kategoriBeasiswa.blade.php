@@ -1,16 +1,39 @@
 <x-app-layout>
     <div class="col-span-full xl:col-span-8 bg-white dark:bg-gray-800 shadow-xs rounded-xl m-4 relative">
-        <header class="px-5 py-4 border-b border-gray-100 dark:border-gray-700/60 flex justify-between items-center">
-            <h2 class="font-semibold text-gray-800 dark:text-gray-100">Kategori Beasiswa</h2>
-            <button
-                onclick="openFormModal()"
-                class="bg-[#5452D7] hover:bg-[#4442c0] text-white px-4 py-2 rounded transition text-sm"
-            >
-                Tambah Beasiswa
-            </button>
-        </header>
+        
 
-        <div class="p-3" x-data="{ openModalId: null }">
+        <div class="p-3" 
+            x-data="{ 
+                createModalOpen: false,
+                editModalId: {{ session('old_input.edit_id') ?? 'null' }}, 
+                deleteModalId: null 
+            }">
+
+            <header class="px-5 py-4 border-b border-gray-100 dark:border-gray-700/60 flex justify-between items-center">
+                <h2 class="font-semibold text-gray-800 dark:text-gray-100">Kategori Beasiswa</h2>
+                
+                <div class="mb-4 flex justify-end">
+                    <button
+                        @click="createModalOpen = true"
+                        class="px-4 py-2 bg-[#5452D7] hover:bg-[#4442c0] text-white rounded transition"
+                    >
+                        + Tambah Beasiswa
+                    </button>
+                </div>
+            </header>
+
+            <hr class="border-gray-100 dark:border-gray-700/60 mb-4">
+
+            @if ($errors->any())
+                <div class="mb-4 text-sm text-red-600 dark:text-red-400">
+                    <ul class="list-disc pl-5">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            
             <!-- Table -->
             <div class="overflow-x-auto">
                 <table class="table-fixed w-full dark:text-gray-300">
@@ -19,6 +42,18 @@
                         <tr>
                             <th class="p-2 w-1/4">
                                 <div class="font-bold text-left">Beasiswa</div>
+                            </th>
+                            <th class="p-2 w-1/4">
+                                <div class="font-bold text-left">Jenis</div>
+                            </th>
+                            <th class="p-2 w-1/4">
+                                <div class="font-bold text-left">Tanggal Buka</div>
+                            </th>
+                            <th class="p-2 w-1/4">
+                                <div class="font-bold text-left">Tanggal Tutup</div>
+                            </th>
+                            <th class="p-2 w-1/4">
+                                <div class="font-bold text-left">Syarat</div>
                             </th>
                             <th class="p-2 w-1/4">
                                 <div class="font-bold text-start">Aksi</div>
@@ -35,44 +70,200 @@
                                 </div>
                             </td>
                             <td class="p-2 w-1/4">
+                                <div class="flex items-start">
+                                    <div class="text-gray-800 dark:text-gray-100">{{ $beasiswa->jenis_beasiswa }}</div>
+                                </div>
+                            </td>
+                            <td class="p-2 w-1/4">
+                                <div class="flex items-start">
+                                    <div class="text-gray-800 dark:text-gray-100">{{ $beasiswa->tanggal_buka }}</div>
+                                </div>
+                            </td>
+                            <td class="p-2 w-1/4">
+                                <div class="flex items-start">
+                                    <div class="text-gray-800 dark:text-gray-100">{{ $beasiswa->tanggal_tutup }}</div>
+                                </div>
+                            </td>
+                            <td class="p-2 w-1/4">
+                                <div class="flex items-start">
+                                    <div class="text-gray-800 dark:text-gray-100">{{ $beasiswa->syarat }}</div>
+                                </div>
+                            </td>
+                            <td class="p-2 w-1/4">
+                                <div class="flex items-start">
+                                    <div class="text-gray-800 dark:text-gray-100">
+                                    <a
+                                    @click="editModalId = {{ $beasiswa->id }}"
+                                    class="text-[#5452D7] hover:text-[#4442c0] mr-3 cursor-pointer"
+                                    >
+                                        <i class="fas fa-edit text-2xl"></i>
+                                    </a>
+                                    <a
+                                    @click="deleteModalId = {{ $beasiswa->id }}"
+                                    class="text-red-500 hover:text-red-700 cursor-pointer"
+                                    >
+                                        <i class="fas fa-trash text-2xl"></i>
+                                    </a>
+                                    </div>
+                                </div>
+                            </td>
+                            <!-- <td class="p-2 w-1/4">
                                 <button
-                                    @click="openModalId = {{ $beasiswa->id }}"
+                                    @click="editModalId = {{ $beasiswa->id }}"
                                     class="bg-[#5452D7] hover:bg-[#4442c0] text-white px-4 py-2 rounded transition"
                                 >
                                     Syarat
                                 </button>
-                            </td>
+                            </td> -->
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
 
-            <!-- Modal per beasiswa -->
-            @foreach ($beasiswas as $beasiswa)
+            
+            
+
+            <!-- Modal Tambah -->
             <div
-                x-show="openModalId === {{ $beasiswa->id }}"
+                x-show="createModalOpen"
                 x-transition
                 class="fixed inset-0 z-50 flex items-center justify-center"
                 style="display: none; background-color: rgba(0, 0, 0, 0.5);"
             >
-                <div @click.away="openModalId = null" class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md p-6">
+                <div @click.away="createModalOpen = false" class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-11/12 md:w-1/2 p-6">
+                <div class="flex justify-between items-center border-b pb-2">
+                    <h5 class="text-lg font-semibold text-gray-800 dark:text-white">Tambah Beasiswa</h5>
+                    <button @click="createModalOpen = false" class="text-gray-400 hover:text-gray-600 text-xl">&times;</button>
+                </div>
+
+                <div class="mt-4 text-gray-700 dark:text-gray-300 space-y-1">
+                    <form action="{{ route('addKategoriBeasiswa') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="mb-2">
+                            <label for="nama_beasiswa" class="block text-gray-700 dark:text-gray-300 mb-1">Nama Beasiswa</label>
+                            <input type="text" id="nama_beasiswa" name="nama_beasiswa"
+                                class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#5452D7]"
+                                required>
+                        </div>
+                        <div class="mb-2">
+                            <label for="jenis_beasiswa" class="block text-gray-700 dark:text-gray-300 mb-1">Jenis Beasiswa</label>
+                            <input type="text" id="jenis_beasiswa" name="jenis_beasiswa"
+                                class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#5452D7]"
+                                required>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 mb-2">
+                            <div>
+                                <label for="tanggal_buka" class="block text-gray-700 dark:text-gray-300 mb-1">Tanggal Buka</label>
+                                <input type="date" id="tanggal_buka" name="tanggal_buka"
+                                    class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#5452D7]"
+                                    required>
+                            </div>
+                            <div>
+                                <label for="tanggal_tutup" class="block text-gray-700 dark:text-gray-300 mb-1">Tanggal Tutup</label>
+                                <input type="date" id="tanggal_tutup" name="tanggal_tutup"
+                                    class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#5452D7]"
+                                    required>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="syarat" class="block text-gray-700 dark:text-gray-300 mb-1">Syarat</label>
+                            <textarea id="syarat" name="syarat" rows="4"
+                                class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#5452D7]"
+                                required></textarea>
+                        </div>
+                        <div class="mt-6 flex justify-end gap-2">
+                            <button @click="createModalOpen = false" type="button" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded">Batal</button>
+                            <button type="submit" class="px-4 py-2 bg-[#5452D7] hover:bg-[#4442c0] text-white rounded transition">Tambah</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+            <!-- Modal per beasiswa -->
+            @foreach ($beasiswas as $beasiswa)
+            <div
+                x-show="editModalId === {{ $beasiswa->id }}"
+                x-transition
+                class="fixed inset-0 z-50 flex items-center justify-center"
+                style="display: none; background-color: rgba(0, 0, 0, 0.5);"
+            >
+                <div @click.away="editModalId = null" class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-11/12 md:w-1/2 p-6">
                     <!-- Modal header -->
                     <div class="flex justify-between items-center border-b pb-2">
-                        <h5 class="text-lg font-semibold text-gray-800 dark:text-white">Syarat & Ketentuan</h5>
-                        <button @click="openModalId = null" class="text-gray-400 hover:text-gray-600 text-xl">&times;</button>
+                        <h5 class="text-lg font-semibold text-gray-800 dark:text-white">Edit Beasiswa</h5>
+                        <button @click="editModalId = null" class="text-gray-400 hover:text-gray-600 text-xl">&times;</button>
                     </div>
 
                     <!-- Modal body -->
                     <div class="mt-4 text-gray-700 dark:text-gray-300 space-y-1">
-                        @foreach (explode(',', $beasiswa->syarat) as $syarat)
-                            <li>{{ trim($syarat) }}</li>
-                        @endforeach
+                        @if ($errors->any() && old('edit_id') == $beasiswa->id)
+                            <div class="mb-4 text-sm text-red-600 dark:text-red-400">
+                                <ul class="list-disc pl-5">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        <form action="{{ route('updateKategoriBeasiswa', $beasiswa->id) }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="edit_id" value="{{ $beasiswa->id }}">
+                            <div class="mb-2">
+                                <label for="nama_beasiswa" class="block text-gray-700 dark:text-gray-300 mb-1">Nama Beasiswa</label>
+                                <input type="text" id="nama_beasiswa" name="nama_beasiswa" class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#5452D7]" value="{{ old('nama_beasiswa', $beasiswa->nama_beasiswa) }}"
+                                required>
+                            </div>
+                            <div class="mb-2">
+                                <label for="jenis_beasiswa" class="block text-gray-700 dark:text-gray-300 mb-1">Jenis Beasiswa</label>
+                                <input type="text" id="jenis_beasiswa" name="jenis_beasiswa" class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#5452D7]" value="{{ old('jenis_beasiswa', $beasiswa->jenis_beasiswa) }}" required>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2 mb-2">
+                            <div >
+                                <label for="tanggal_buka" class="block text-gray-700 dark:text-gray-300 mb-1">Tanggal Buka</label>
+                                <input type="date" id="tanggal_buka" name="tanggal_buka" class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#5452D7]" value="{{ old('tanggal_buka', $beasiswa->tanggal_buka) }}" required>
+                            </div>
+                            <div>
+                                <label for="tanggal_tutup" class="block text-gray-700 dark:text-gray-300 mb-1">Tanggal Tutup</label>
+                                <input type="date" id="tanggal_tutup" name="tanggal_tutup" class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#5452D7]" value="{{ old('tanggal_tutup', $beasiswa->tanggal_tutup) }}" required>
+                            </div>
+                            </div>
+                            <div>
+                                <label for="syarat" class="block text-gray-700 dark:text-gray-300 mb-1">Syarat</label>
+                                <textarea id="syarat" name="syarat" rows="4" class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#5452D7]" required>{{ old('syarat', $beasiswa->syarat) }}</textarea>
+                            </div>
+                            <div class="mt-6 flex justify-end gap-2">
+                                <button @click="editModalId = null" type="button" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded">Tutup</button>
+                                <button type="submit" class="px-4 py-2 bg-[#5452D7] hover:bg-[#4442c0] text-white rounded transition">Simpan</button>
+                            </div>
+                        </form>
                     </div>
+                </div>
+            </div>
 
-                    <!-- Modal footer -->
-                    <div class="mt-6 flex justify-end">
-                        <button @click="openModalId = null" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded">Tutup</button>
+            <!-- Modal Hapus -->
+            <div
+                x-show="deleteModalId === {{ $beasiswa->id }}"
+                x-transition
+                class="fixed inset-0 z-50 flex items-center justify-center"
+                style="display: none; background-color: rgba(0, 0, 0, 0.5);"
+            >
+                <div @click.away="deleteModalId = null" class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-11/12 md:w-1/2 p-6">
+                    <div class="flex justify-between items-center border-b pb-2">
+                        <h5 class="text-lg font-semibold text-gray-800 dark:text-white">Hapus Beasiswa</h5>
+                        <button @click="deleteModalId = null" class="text-gray-400 hover:text-gray-600 text-xl">&times;</button>
+                    </div>
+                    <div class="mt-4 text-gray-700 dark:text-gray-300 space-y-1">
+                        <p>Apakah Anda yakin ingin menghapus beasiswa {{ $beasiswa->nama_beasiswa }}?</p>
+                        <div class="mt-6 flex justify-end gap-2">
+                            <button @click="deleteModalId = null" type="button" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded">Tutup</button>
+                            <form action="{{ route('deleteKategoriBeasiswa', $beasiswa->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="px-4 py-2 bg-[#5452D7] hover:bg-[#4442c0] text-white rounded transition">Hapus</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -81,43 +272,7 @@
 
 
     <!-- Modal: Form Tambah Beasiswa -->
-    <div
-        id="formModal"
-        class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden"
-    >
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-11/12 md:w-1/2">
-            <h2 class="text-2xl font-bold mb-4 text-center text-gray-800 dark:text-gray-100">Tambah Beasiswa</h2>
-            <form class="space-y-4" >
-                <div>
-                    <label class="block text-gray-700 dark:text-gray-300 mb-1" for="nama_beasiswa">Nama Beasiswa</label>
-                    <input type="text" id="nama_beasiswa" name="nama_beasiswa" class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#5452D7]" required>
-                </div>
-                <div>
-                    <label class="block text-gray-700 dark:text-gray-300 mb-1" for="periode">Periode</label>
-                    <input type="text" id="periode" name="periode" class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#5452D7]" required>
-                </div>
-                <div>
-                    <label class="block text-gray-700 dark:text-gray-300 mb-1" for="keterangan">Keterangan</label>
-                    <textarea id="keterangan" name="keterangan" rows="3" class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#5452D7]" required></textarea>
-                </div>
-                <div class="flex justify-end space-x-2 pt-4">
-                    <button
-                        type="button"
-                        onclick="closeFormModal()"
-                        class="px-4 py-2 bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded hover:bg-gray-400 transition"
-                    >
-                        Batal
-                    </button>
-                    <button
-                        type="submit"
-                        class="px-6 py-2 bg-[#5452D7] hover:bg-[#4442c0] text-white rounded transition"
-                    >
-                        Simpan
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
+
 
     <!-- Script -->
     <script>

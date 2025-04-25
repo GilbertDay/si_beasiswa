@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\DataFeed;
 use App\Models\Beasiswa;
 use App\Models\Pengajuan;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
@@ -19,13 +20,13 @@ class DashboardController extends Controller
     public function home()
     {
 
-        $beasiswas = Beasiswa::all();
+        $beasiswas = Beasiswa::whereDate('tanggal_buka', '>=', now()->toDateString())->get();
         
         return view('pages/home/home', compact('beasiswas'));
     }
     public function pengajuanBeasiswa()
     {
-        $beasiswas = Beasiswa::all();
+        $beasiswas = Beasiswa::whereDate('tanggal_buka', '>=', now()->toDateString())->get();
 
         return view('pages/pengajuan-beasiswa/pengajuan-beasiswa', compact('beasiswas'));
     }
@@ -39,13 +40,18 @@ class DashboardController extends Controller
 // admin
     public function homeAdmin()
     {
-        $dataFeed = new DataFeed();
+        $mahasiswas = User::where('role', 'mahasiswa')->count();
+        $beasiswas = Beasiswa::whereDate('tanggal_buka', '>=', now()->toDateString())->count();
 
-        return view('admin/home/home', compact('dataFeed'));
+        $pengajuan = Pengajuan::count();
+        $pengajuanDiterima = Pengajuan::where('status', 'accepted')->count();
+        $pengajuanDitolak = Pengajuan::where('status', 'rejected')->count();
+        $pengajuanDiProses = Pengajuan::where('status', 'pending')->count();
+        return view('admin/home/home', compact('mahasiswas', 'beasiswas', 'pengajuan', 'pengajuanDiterima', 'pengajuanDitolak', 'pengajuanDiProses'));
     }
     public function kategoriBeasiswa()
     {
-        $beasiswas = Beasiswa::all();
+        $beasiswas = Beasiswa::orderBy('created_at', 'desc')->get();
         return view('admin/kategori/kategoriBeasiswa', compact('beasiswas'));
     }
     public function daftarPengajuan()
