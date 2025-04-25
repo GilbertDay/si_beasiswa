@@ -6,35 +6,28 @@
         <div class="p-3">
 
             <!-- Table -->
+        <div class="p-3" x-data="{ openModalId: null }">
+            <!-- Table -->
             <div class="overflow-x-auto">
                 <table class="table-fixed w-full dark:text-gray-300">
                     <!-- Table header -->
                     <thead class="text-xs uppercase text-gray-800 dark:text-gray-500 bg-[#404CB8]/15 rounded-xs">
                         <tr>
-                            <th class="px-2 py-1 w-[50px] text-xs text-left whitespace-nowrap">
-                                <div class="font-bold text-left">No</div>
-                            </th>
-                            <th class="p-2 w-1/2">
+                            <th class="p-2 w-1/4">
                                 <div class="font-bold text-left">Beasiswa</div>
                             </th>
-                            <th class="p-2 w-1/2">
-                                <div class="font-bold text-left">Jenis Beasiswa</div>
+                            <th class="p-2 w-1/4">
+                                <div class="font-bold text-start">Jenis</div>
                             </th>
-                            <th class="p-2 w-1/4 ">
+                            <th class="p-2 w-1/4">
                                 <div class="font-bold text-start">Aksi</div>
                             </th>
                         </tr>
                     </thead>
                     <!-- Table body -->
                     <tbody class="text-sm font-medium divide-y divide-gray-100 dark:divide-gray-700/60">
-                        <!-- Row -->
                         @foreach ($beasiswas as $beasiswa)
                         <tr>
-                            <td class="p-2 w-1/4">
-                                <div class="flex items-start">
-                                    <div class="text-gray-800 dark:text-gray-100">{{ $loop->iteration }}</div>
-                                </div>
-                            </td>
                             <td class="p-2 w-1/4">
                                 <div class="flex items-start">
                                     <div class="text-gray-800 dark:text-gray-100">{{ $beasiswa->nama_beasiswa }}</div>
@@ -47,17 +40,46 @@
                             </td>
                             <td class="p-2 w-1/4">
                                 <button
-                                onclick="openModal()"
-                                class="bg-[#5452D7] hover:bg-[#4442c0] text-white px-4 py-2 rounded transition">
-                                    Check
+                                    @click="openModalId = {{ $beasiswa->id }}"
+                                    class="bg-[#5452D7] hover:bg-[#4442c0] text-white px-4 py-2 rounded transition"
+                                >
+                                    Syarat
                                 </button>
                             </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
-
             </div>
+
+            <!-- Modal per beasiswa -->
+            @foreach ($beasiswas as $beasiswa)
+            <div
+                x-show="openModalId === {{ $beasiswa->id }}"
+                x-transition
+                class="fixed inset-0 z-50 flex items-center justify-center"
+                style="display: none; background-color: rgba(0, 0, 0, 0.5);"
+            >
+                <div @click.away="openModalId = null" class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md p-6">
+                    <!-- Modal header -->
+                    <div class="flex justify-between items-center border-b pb-2">
+                        <h5 class="text-lg font-semibold text-gray-800 dark:text-white">Syarat & Ketentuan</h5>
+                        <button @click="openModalId = null" class="text-gray-400 hover:text-gray-600 text-xl">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="mt-4 text-gray-700 dark:text-gray-300 space-y-1">
+                    @foreach (explode(',', $beasiswa->syarat) as $syarat)
+                        <li>{{ trim($syarat) }}</li>
+                    @endforeach
+                </div>
+
+                <!-- Modal footer -->
+                <div class="mt-6 flex justify-end">
+                    <button @click="openModalId = null" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded">Tutup</button>
+                </div>
+            </div>
+            @endforeach
         </div>
     </div>
     <!-- Modal -->

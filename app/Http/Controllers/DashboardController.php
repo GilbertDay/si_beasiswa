@@ -29,11 +29,12 @@ class DashboardController extends Controller
 
         return view('pages/pengajuan-beasiswa/pengajuan-beasiswa', compact('beasiswas'));
     }
-    public function pengumuman()
+    public function riwayat()
     {
-        $dataFeed = new DataFeed();
-
-        return view('pages/pengumuman/pengumuman', compact('dataFeed'));
+        $pengajuans = Pengajuan::with(['user', 'beasiswa', 'userDocument'])
+        ->orderBy('created_at', 'desc')
+        ->get();
+        return view('pages/riwayat/riwayat', compact('pengajuans'));
     }
 // admin
     public function homeAdmin()
@@ -44,14 +45,15 @@ class DashboardController extends Controller
     }
     public function kategoriBeasiswa()
     {
-        $dataFeed = new DataFeed();
-
-        return view('admin/kategori/kategoriBeasiswa', compact('dataFeed'));
+        $beasiswas = Beasiswa::all();
+        return view('admin/kategori/kategoriBeasiswa', compact('beasiswas'));
     }
     public function daftarPengajuan()
     {
         // $pengajuan = Pengajuan::with(['user', 'beasiswa'])->get();
-        $pengajuan = Pengajuan::with(['user', 'beasiswa', 'userDocument'])->get();
+        $pengajuan = Pengajuan::with(['user', 'beasiswa', 'userDocument'])
+        ->orderBy('created_at', 'desc')
+        ->get();   
         // dd($pengajuan);
         return view('admin/daftar/daftarPengajuan', compact('pengajuan'));
     }

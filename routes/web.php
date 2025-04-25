@@ -43,7 +43,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/home', [DashboardController::class, 'home'])->name('home'); // setting alamat di controller
     Route::get('/dashboard/pengajuan-beasiswa', [DashboardController::class, 'pengajuanBeasiswa'])->name('pengajuan-beasiswa'); // setting alamat di controller
-    Route::get('/dashboard/pengumuman', [DashboardController::class, 'pengumuman'])->name('pengumuman'); // setting alamat di controller
+    Route::get('/dashboard/riwayat', [DashboardController::class, 'riwayat'])->name('riwayat'); // setting alamat di controller
     Route::get('/admin/home', [DashboardController::class, 'homeAdmin'])->name('homeAdmin');
     Route::get('/admin/kategori-beasiswa', [DashboardController::class, 'kategoriBeasiswa'])->name('kategoriBeasiswa');
     Route::get('/admin/daftar-pengajuan', [DashboardController::class, 'daftarPengajuan'])->name('daftarPengajuan');

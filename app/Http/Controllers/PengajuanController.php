@@ -64,9 +64,10 @@ class PengajuanController extends Controller
         $tanggalSekarang = date('YmdHis');
         $pengajuan = Pengajuan::with(['user', 'beasiswa', 'userDocument'])->find($request->id);
 
-        $nom_terima = "PENGJ" . $tanggalSekarang . $pengajuan->user->NIM;
+        $nom_terima = "TRM" . $tanggalSekarang . $pengajuan->user->NIM;
+        $nom_tolak = "TLK" . $tanggalSekarang . $pengajuan->user->NIM;
 
-        $pengajuan->nom_terima = $nom_terima;
+        $pengajuan->nom_terima = $request->text === 'acc' ? $nom_terima : $nom_tolak;
         $pengajuan->status = $request->text === 'acc' ? 'accepted' : 'rejected';
 
         $pengajuan->save();
