@@ -31,4 +31,12 @@ class Pengajuan extends Model
     {
         return $this->belongsTo(Beasiswa::class);
     }
+
+    public function userDocument()
+    {
+        return $this->hasOne(UserDocument::class);
+    }
+    
+
+
 }

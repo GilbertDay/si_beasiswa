@@ -10,6 +10,8 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\CampaignController;
+use App\Http\Controllers\BeasiswaController;
+use App\Http\Controllers\PengajuanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,12 +43,24 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/home', [DashboardController::class, 'home'])->name('home'); // setting alamat di controller
     Route::get('/dashboard/pengajuan-beasiswa', [DashboardController::class, 'pengajuanBeasiswa'])->name('pengajuan-beasiswa'); // setting alamat di controller
-    Route::get('/dashboard/pengumuman', [DashboardController::class, 'pengumuman'])->name('pengumuman'); // setting alamat di controller
+    Route::get('/dashboard/riwayat', [DashboardController::class, 'riwayat'])->name('riwayat'); // setting alamat di controller
     Route::get('/admin/home', [DashboardController::class, 'homeAdmin'])->name('homeAdmin');
     Route::get('/admin/kategori-beasiswa', [DashboardController::class, 'kategoriBeasiswa'])->name('kategoriBeasiswa');
     Route::get('/admin/daftar-pengajuan', [DashboardController::class, 'daftarPengajuan'])->name('daftarPengajuan');
     Route::get('/admin/verifikasi-dokumen', [DashboardController::class, 'verifikasiDokumen'])->name('verifikasiDokumen');
+  
     Route::get('/admin/laporan-penerima', [DashboardController::class, 'laporanPenerima'])->name('laporanPenerima');
+
+
+    //Pengajuan Beasiswa
+    Route::post('/dashboard/pengajuan-beasiswa', [PengajuanController::class, 'addPengajuanBeasiswa'])->name('addPengajuanBeasiswa');
+    Route::get('/updatePengajuan/{text}/{id}', [PengajuanController::class, 'updatePengajuan'])->name('updatePengajuan');
+
+    //Kategori Beasiswa
+    Route::post('/admin/kategori-beasiswa', [BeasiswaController::class, 'addKategoriBeasiswa'])->name('addKategoriBeasiswa');
+    Route::post('/updateKategori/{id}', [BeasiswaController::class, 'updateKategoriBeasiswa'])->name('updateKategoriBeasiswa');
+    Route::delete('/deleteKategori/{id}', [BeasiswaController::class, 'deleteKategoriBeasiswa'])->name('deleteKategoriBeasiswa');
+
     // Route::get('/dashboard/analytics', [DashboardController::class, 'analytics'])->name('analytics');
     // Route::get('/dashboard/fintech', [DashboardController::class, 'fintech'])->name('fintech');
     // Route::get('/ecommerce/customers', [CustomerController::class, 'index'])->name('customers');

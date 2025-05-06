@@ -9,4 +9,15 @@ class Beasiswa extends Model
 {
     /** @use HasFactory<\Database\Factories\BeasiswaFactory> */
     use HasFactory;
+
+    protected $table = 'beasiswas';
+
+    protected $fillable = [
+        'nama_beasiswa',
+        'semester_id',
+        'jenis_beasiswa',
+        'tanggal_buka',
+        'tanggal_tutup',
+        'syarat'
+    ];
 }

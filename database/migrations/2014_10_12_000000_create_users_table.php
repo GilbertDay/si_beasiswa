@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('role')->default('mahasiswa');
             $table->string('no_hp')->nullable();
             $table->string('jenis_kelamin')->nullable();
-            $table->double('ipk')->nullable();
             $table->integer('total_sks')->nullable();
             $table->string('jurusan')->nullable();
             $table->string('password');

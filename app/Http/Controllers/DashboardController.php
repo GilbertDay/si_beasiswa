@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\DataFeed;
 use App\Models\Beasiswa;
+use App\Models\Pengajuan;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
@@ -17,41 +19,49 @@ class DashboardController extends Controller
 
     public function home()
     {
-        $dataFeed = new DataFeed();
-        $beasiswas = Beasiswa::all();
 
-        return view('pages/home/home', compact('dataFeed', 'beasiswas'));
+        $beasiswas = Beasiswa::whereDate('tanggal_buka', '>=', now()->toDateString())->get();
+        
+        return view('pages/home/home', compact('beasiswas'));
     }
     public function pengajuanBeasiswa()
     {
-        $dataFeed = new DataFeed();
+        $beasiswas = Beasiswa::whereDate('tanggal_buka', '>=', now()->toDateString())->get();
 
-        return view('pages/pengajuan-beasiswa/pengajuan-beasiswa', compact('dataFeed'));
+        return view('pages/pengajuan-beasiswa/pengajuan-beasiswa', compact('beasiswas'));
     }
-    public function pengumuman()
+    public function riwayat()
     {
-        $dataFeed = new DataFeed();
-
-        return view('pages/pengumuman/pengumuman', compact('dataFeed'));
+        $pengajuans = Pengajuan::with(['user', 'beasiswa', 'userDocument'])
+        ->orderBy('created_at', 'desc')
+        ->get();
+        return view('pages/riwayat/riwayat', compact('pengajuans'));
     }
 // admin
     public function homeAdmin()
     {
-        $dataFeed = new DataFeed();
+        $mahasiswas = User::where('role', 'mahasiswa')->count();
+        $beasiswas = Beasiswa::whereDate('tanggal_buka', '>=', now()->toDateString())->count();
 
-        return view('admin/home/home', compact('dataFeed'));
+        $pengajuan = Pengajuan::count();
+        $pengajuanDiterima = Pengajuan::where('status', 'accepted')->count();
+        $pengajuanDitolak = Pengajuan::where('status', 'rejected')->count();
+        $pengajuanDiProses = Pengajuan::where('status', 'pending')->count();
+        return view('admin/home/home', compact('mahasiswas', 'beasiswas', 'pengajuan', 'pengajuanDiterima', 'pengajuanDitolak', 'pengajuanDiProses'));
     }
     public function kategoriBeasiswa()
     {
-        $dataFeed = new DataFeed();
-
-        return view('admin/kategori/kategoriBeasiswa', compact('dataFeed'));
+        $beasiswas = Beasiswa::orderBy('created_at', 'desc')->get();
+        return view('admin/kategori/kategoriBeasiswa', compact('beasiswas'));
     }
     public function daftarPengajuan()
     {
-        $dataFeed = new DataFeed();
-
-        return view('admin/daftar/daftarPengajuan', compact('dataFeed'));
+        // $pengajuan = Pengajuan::with(['user', 'beasiswa'])->get();
+        $pengajuan = Pengajuan::with(['user', 'beasiswa', 'userDocument'])
+        ->orderBy('created_at', 'desc')
+        ->get();   
+        // dd($pengajuan);
+        return view('admin/daftar/daftarPengajuan', compact('pengajuan'));
     }
     public function verifikasiDokumen()
     {
