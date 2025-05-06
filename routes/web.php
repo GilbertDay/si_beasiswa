@@ -48,6 +48,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/admin/kategori-beasiswa', [DashboardController::class, 'kategoriBeasiswa'])->name('kategoriBeasiswa');
     Route::get('/admin/daftar-pengajuan', [DashboardController::class, 'daftarPengajuan'])->name('daftarPengajuan');
     Route::get('/admin/verifikasi-dokumen', [DashboardController::class, 'verifikasiDokumen'])->name('verifikasiDokumen');
+  
+    Route::get('/admin/laporan-penerima', [DashboardController::class, 'laporanPenerima'])->name('laporanPenerima');
 
 
     //Pengajuan Beasiswa

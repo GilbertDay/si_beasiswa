@@ -150,11 +150,11 @@
                                         <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Daftar Pengajuan</span>
                                     </a>
                                 </li>
-                                <!-- <li class="mb-1 last:mb-0">
-                                    <a class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate @if(Route::is('verifikasiDokumen')){{ 'text-violet-500!' }}@endif" href="{{ route('verifikasiDokumen') }}">
-                                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Verifikasi </span>
+                                <li class="mb-1 last:mb-0">
+                                    <a class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate @if(Route::is('laporanPenerima')){{ 'text-violet-500!' }}@endif" href="{{ route('laporanPenerima') }}">
+                                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Laporan Penerima </span>
                                     </a>
-                                </li> -->
+                                </li>
                             </ul>
                         </div>
                     </li>

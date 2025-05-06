@@ -69,7 +69,12 @@ class DashboardController extends Controller
 
         return view('admin/verifikasi/verifikasiDokumen', compact('dataFeed'));
     }
+    public function laporanPenerima()
+    {
+        $dataFeed = new DataFeed();
 
+        return view('admin/laporan/laporan', compact('dataFeed'));
+    }
 
 
 
