@@ -19,7 +19,6 @@ class DashboardController extends Controller
 
     public function home()
     {
-
         $beasiswas = Beasiswa::whereDate('tanggal_buka', '>=', now()->toDateString())->get();
 
         return view('pages/home/home', compact('beasiswas'));
