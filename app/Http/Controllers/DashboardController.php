@@ -21,7 +21,7 @@ class DashboardController extends Controller
     {
 
         $beasiswas = Beasiswa::whereDate('tanggal_buka', '>=', now()->toDateString())->get();
-        
+
         return view('pages/home/home', compact('beasiswas'));
     }
     public function pengajuanBeasiswa()
@@ -30,10 +30,11 @@ class DashboardController extends Controller
 
         return view('pages/pengajuan-beasiswa/pengajuan-beasiswa', compact('beasiswas'));
     }
-    public function riwayat()
+    public function riwayat($id)
     {
         $pengajuans = Pengajuan::with(['user', 'beasiswa', 'userDocument'])
         ->orderBy('created_at', 'desc')
+        ->where('user_id', $id)
         ->get();
         return view('pages/riwayat/riwayat', compact('pengajuans'));
     }
@@ -59,7 +60,7 @@ class DashboardController extends Controller
         // $pengajuan = Pengajuan::with(['user', 'beasiswa'])->get();
         $pengajuan = Pengajuan::with(['user', 'beasiswa', 'userDocument'])
         ->orderBy('created_at', 'desc')
-        ->get();   
+        ->get();
         // dd($pengajuan);
         return view('admin/daftar/daftarPengajuan', compact('pengajuan'));
     }
@@ -71,9 +72,47 @@ class DashboardController extends Controller
     }
     public function laporanPenerima()
     {
-        $dataFeed = new DataFeed();
+        $beasiswas = Beasiswa::orderBy('created_at', 'desc')->get();
+        $pengajuans = Pengajuan::with(['user', 'beasiswa', 'userDocument'])
+        ->orderBy('created_at', 'desc')
+        ->get();
 
-        return view('admin/laporan/laporan', compact('dataFeed'));
+        return view('admin/laporan/laporan', compact('beasiswas', 'pengajuans'));
+    }
+
+    public function laporanPenerimaFilter(Request $request)
+
+    {
+        $data = $request->all();
+
+        $beasiswas = Beasiswa::orderBy('created_at', 'desc')->get();
+
+        $pengajuans = Pengajuan::with('user');
+
+        if (isset($data['program_studi'])) {
+            $pengajuans = $pengajuans->whereHas('user', function ($query) use ($data) {
+                $query->where('jurusan', $data['program_studi']);
+            });
+        }
+
+        if (isset($data['jenis_beasiswa'])) {
+            $pengajuans = $pengajuans->where('beasiswa_id', $data['jenis_beasiswa']);
+        }
+
+        // dd($pengajuans->get());
+
+        if (isset($data['semester'])) {
+            $pengajuans = $pengajuans->where('smtr_pengajuan', $data['semester']);
+        }
+
+        if (isset($data['status_seleksi'])) {
+            $pengajuans = $pengajuans->where('status', $data['status_seleksi']);
+        }
+
+        $pengajuans = $pengajuans->get();
+
+
+        return view('admin/laporan/laporan', compact('beasiswas', 'pengajuans'));
     }
 
 

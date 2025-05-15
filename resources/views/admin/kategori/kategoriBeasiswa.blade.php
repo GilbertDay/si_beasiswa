@@ -1,17 +1,17 @@
 <x-app-layout>
     <div class="col-span-full xl:col-span-8 bg-white dark:bg-gray-800 shadow-xs rounded-xl m-4 relative">
-        
 
-        <div class="p-3" 
-            x-data="{ 
+
+        <div class="p-3"
+            x-data="{
                 createModalOpen: false,
-                editModalId: {{ session('old_input.edit_id') ?? 'null' }}, 
-                deleteModalId: null 
+                editModalId: {{ session('old_input.edit_id') ?? 'null' }},
+                deleteModalId: null
             }">
 
             <header class="px-5 py-4 border-b border-gray-100 dark:border-gray-700/60 flex justify-between items-center">
                 <h2 class="font-semibold text-gray-800 dark:text-gray-100">Kategori Beasiswa</h2>
-                
+
                 <div class="mb-4 flex justify-end">
                     <button
                         @click="createModalOpen = true"
@@ -33,7 +33,7 @@
                     </ul>
                 </div>
             @endif
-            
+
             <!-- Table -->
             <div class="overflow-x-auto">
                 <table class="table-fixed w-full dark:text-gray-300">
@@ -54,6 +54,9 @@
                             </th>
                             <th class="p-2 w-1/4">
                                 <div class="font-bold text-left">Syarat</div>
+                            </th>
+                            <th class="p-2 w-1/4">
+                                <div class="font-bold text-left">Nominal</div>
                             </th>
                             <th class="p-2 w-1/4">
                                 <div class="font-bold text-start">Aksi</div>
@@ -92,6 +95,14 @@
                             <td class="p-2 w-1/4">
                                 <div class="flex items-start">
                                     <div class="text-gray-800 dark:text-gray-100">
+                                        {{ 'Rp. ' . number_format($beasiswa->nominal, 0, ',', '.') }}
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td class="p-2 w-1/4">
+                                <div class="flex items-start">
+                                    <div class="text-gray-800 dark:text-gray-100">
                                     <a
                                     @click="editModalId = {{ $beasiswa->id }}"
                                     class="text-[#5452D7] hover:text-[#4442c0] mr-3 cursor-pointer"
@@ -121,8 +132,8 @@
                 </table>
             </div>
 
-            
-            
+
+
 
             <!-- Modal Tambah -->
             <div
@@ -149,6 +160,12 @@
                         <div class="mb-2">
                             <label for="jenis_beasiswa" class="block text-gray-700 dark:text-gray-300 mb-1">Jenis Beasiswa</label>
                             <input type="text" id="jenis_beasiswa" name="jenis_beasiswa"
+                                class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#5452D7]"
+                                required>
+                        </div>
+                        <div class="mb-2">
+                            <label for="nominal" class="block text-gray-700 dark:text-gray-300 mb-1">Nominal</label>
+                            <input type="number" id="nominal" name="nominal"
                                 class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#5452D7]"
                                 required>
                         </div>
@@ -218,6 +235,10 @@
                             <div class="mb-2">
                                 <label for="jenis_beasiswa" class="block text-gray-700 dark:text-gray-300 mb-1">Jenis Beasiswa</label>
                                 <input type="text" id="jenis_beasiswa" name="jenis_beasiswa" class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#5452D7]" value="{{ old('jenis_beasiswa', $beasiswa->jenis_beasiswa) }}" required>
+                            </div>
+                            <div class="mb-2">
+                                <label for="nominal" class="block text-gray-700 dark:text-gray-300 mb-1">Nominal</label>
+                                <input type="number" id="nominal" name="nominal" class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#5452D7]" value="{{ old('nominal', $beasiswa->nominal) }}" required>
                             </div>
                             <div class="grid grid-cols-2 gap-2 mb-2">
                             <div >

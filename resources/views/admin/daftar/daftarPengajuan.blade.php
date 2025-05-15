@@ -34,8 +34,8 @@
                             </td>
                             <td class="p-2 w-1/4">
                             @if ($item->userDocument)
-                                <a 
-                                    href="{{ asset('storage/berkas/' . $item->userDocument->deskripsi) }}" 
+                                <a
+                                    href="{{ asset('storage/berkas/' . $item->userDocument->deskripsi) }}"
                                     target="_blank"
                                     class="text-blue-500 hover:underline"
                                     title="{{ $item->userDocument->deskripsi }}"
@@ -68,7 +68,7 @@
                             </td>
                             @else
                             <td class="p-2 w-1/4">
-                                <span class="inline-block px-3 py-1 text-xs font-semibold text-green-800 bg-green-100 rounded-full">{{ $item->status === 'accepted' ? 'Diterima' : 'Ditolak' }}</span>
+                                <span class="inline-block px-3 py-1 text-xs font-semibold {{ $item->status === 'accepted' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }} rounded-full">{{ $item->status === 'accepted' ? 'Diterima' : 'Ditolak' }}</span>
                             </td>
                             @endif
 
