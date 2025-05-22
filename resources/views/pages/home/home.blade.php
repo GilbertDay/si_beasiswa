@@ -20,6 +20,9 @@
                                 <div class="font-bold text-start">Jenis</div>
                             </th>
                             <th class="p-2 w-1/4">
+                                <div class="font-bold text-start">Semester</div>
+                            </th>
+                            <th class="p-2 w-1/4">
                                 <div class="font-bold text-start">Tanggal Buka</div>
                             </th>
                             <th class="p-2 w-1/4">
@@ -45,6 +48,11 @@
                             <td class="p-2 w-1/4">
                                 <div class="flex items-start">
                                     <div class="text-gray-800 dark:text-gray-100">{{ $beasiswa->jenis_beasiswa }}</div>
+                                </div>
+                            </td>
+                            <td class="p-2 w-1/4">
+                                <div class="flex items-start">
+                                    <div class="text-gray-800 dark:text-gray-100">{{ $beasiswa->semester->kode_semester }}</div>
                                 </div>
                             </td>
                             <td class="p-2 w-1/4">

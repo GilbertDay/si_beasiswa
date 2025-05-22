@@ -41,7 +41,7 @@ class PengajuanController extends Controller
             $file = $request->file('file_upload');
             $fileName = $nim . $tanggalSekarang . '_' . $file->getClientOriginalName();
             $file->storeAs('public/berkas', $fileName);
-            
+
             $noDokumen = "USRDOC" . $tanggalSekarang . $nim;
             $dokumen = new UserDocument();
             $dokumen->pengajuan_id = $pengajuan->id;
@@ -69,6 +69,7 @@ class PengajuanController extends Controller
 
         $pengajuan->nom_terima = $request->text === 'acc' ? $nom_terima : $nom_tolak;
         $pengajuan->status = $request->text === 'acc' ? 'accepted' : 'rejected';
+        $pengajuan->nominal = isset($request->nominal) ? $request->nominal : null;
 
         $pengajuan->save();
         return redirect()->back()->with('success', 'Pengajuan beasiswa berhasil diupdate');

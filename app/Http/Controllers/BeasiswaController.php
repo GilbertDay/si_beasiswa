@@ -33,7 +33,7 @@ class BeasiswaController extends Controller
 
         $beasiswa = new Beasiswa();
         $beasiswa->nama_beasiswa = $request->nama_beasiswa;
-        $beasiswa->semester_id = 1;
+        $beasiswa->semester_id = $request->semester_id;
         $beasiswa->jenis_beasiswa = $request->jenis_beasiswa;
         $beasiswa->tanggal_buka = $request->tanggal_buka;
         $beasiswa->tanggal_tutup = $request->tanggal_tutup;
@@ -71,7 +71,7 @@ class BeasiswaController extends Controller
 
         $beasiswa = Beasiswa::findOrFail($id);
         $beasiswa->nama_beasiswa = $request->nama_beasiswa;
-        $beasiswa->semester_id = 1;
+        $beasiswa->semester_id = $request->semester_id;
         $beasiswa->jenis_beasiswa = $request->jenis_beasiswa;
         $beasiswa->tanggal_buka = $request->tanggal_buka;
         $beasiswa->tanggal_tutup = $request->tanggal_tutup;

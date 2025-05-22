@@ -14,7 +14,7 @@
         <div class="space-y-4">
             <!-- NIM -->
             <div>
-                <label for="nim" class="block text-sm font-medium text-gray-700">{{ __('NIM') }}</label>
+                <label for="nim" class="block text-sm font-medium text-gray-700">{{ __('NIM / NIP') }}</label>
                 <x-input id="nim" class="block mt-1 w-full" type="text" name="nim" :value="old('nim')" required autofocus />
             </div>
 

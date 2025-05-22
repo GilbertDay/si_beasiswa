@@ -47,6 +47,9 @@
                                 <div class="font-bold text-left">Jenis</div>
                             </th>
                             <th class="p-2 w-1/4">
+                                <div class="font-bold text-left">Semester</div>
+                            </th>
+                            <th class="p-2 w-1/4">
                                 <div class="font-bold text-left">Tanggal Buka</div>
                             </th>
                             <th class="p-2 w-1/4">
@@ -75,6 +78,11 @@
                             <td class="p-2 w-1/4">
                                 <div class="flex items-start">
                                     <div class="text-gray-800 dark:text-gray-100">{{ $beasiswa->jenis_beasiswa }}</div>
+                                </div>
+                            </td>
+                            <td class="p-2 w-1/4">
+                                <div class="flex items-start">
+                                    <div class="text-gray-800 dark:text-gray-100">{{ $beasiswa->semester->kode_semester }}</div>
                                 </div>
                             </td>
                             <td class="p-2 w-1/4">
@@ -164,6 +172,17 @@
                                 required>
                         </div>
                         <div class="mb-2">
+                            <label for="semester_id" class="block text-gray-700 dark:text-gray-300 mb-1">Semester</label>
+                            <select id="semester_id" name="semester_id"
+                                class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#5452D7]"
+                                required>
+                                <option value="">Pilih Semester</option>
+                                @foreach ($semester as $item)
+                                    <option value="{{ $item->id }}">{{ $item->kode_semester.' - '.$item->tahun_ajaran }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-2">
                             <label for="nominal" class="block text-gray-700 dark:text-gray-300 mb-1">Nominal</label>
                             <input type="number" id="nominal" name="nominal"
                                 class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#5452D7]"
@@ -236,9 +255,19 @@
                                 <label for="jenis_beasiswa" class="block text-gray-700 dark:text-gray-300 mb-1">Jenis Beasiswa</label>
                                 <input type="text" id="jenis_beasiswa" name="jenis_beasiswa" class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#5452D7]" value="{{ old('jenis_beasiswa', $beasiswa->jenis_beasiswa) }}" required>
                             </div>
+
                             <div class="mb-2">
                                 <label for="nominal" class="block text-gray-700 dark:text-gray-300 mb-1">Nominal</label>
                                 <input type="number" id="nominal" name="nominal" class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#5452D7]" value="{{ old('nominal', $beasiswa->nominal) }}" required>
+                            </div>
+                            <div class="mb-2">
+                                <label for="semester_id" class="block text-gray-700 dark:text-gray-300 mb-1">Semester</label>
+                                <select id="semester_id" name="semester_id" class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#5452D7]" required>
+                                    <option value="">Pilih Semester</option>
+                                    @foreach ($semester as $item)
+                                        <option value="{{ $item->id }}" {{ old('semester_id', $beasiswa->semester_id) == $item->id ? 'selected' : '' }}>{{ $item->kode_semester.' - '.$item->tahun_ajaran }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="grid grid-cols-2 gap-2 mb-2">
                             <div >

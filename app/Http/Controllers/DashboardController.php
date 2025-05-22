@@ -7,6 +7,7 @@ use App\Models\DataFeed;
 use App\Models\Beasiswa;
 use App\Models\Pengajuan;
 use App\Models\User;
+use App\Models\Semester;
 
 class DashboardController extends Controller
 {
@@ -19,7 +20,7 @@ class DashboardController extends Controller
 
     public function home()
     {
-        $beasiswas = Beasiswa::whereDate('tanggal_buka', '>=', now()->toDateString())->get();
+        $beasiswas = Beasiswa::with('semester')->whereDate('tanggal_buka', '>=', now()->toDateString())->get();
 
         return view('pages/home/home', compact('beasiswas'));
     }
@@ -51,8 +52,9 @@ class DashboardController extends Controller
     }
     public function kategoriBeasiswa()
     {
-        $beasiswas = Beasiswa::orderBy('created_at', 'desc')->get();
-        return view('admin/kategori/kategoriBeasiswa', compact('beasiswas'));
+        $beasiswas = Beasiswa::with('semester')->orderBy('created_at', 'desc')->get();
+        $semester = Semester::all();
+        return view('admin/kategori/kategoriBeasiswa', compact('beasiswas', 'semester'));
     }
     public function daftarPengajuan()
     {

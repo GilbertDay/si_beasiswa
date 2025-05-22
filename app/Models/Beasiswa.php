@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Semester;
 
 class Beasiswa extends Model
 {
@@ -20,4 +21,9 @@ class Beasiswa extends Model
         'tanggal_tutup',
         'syarat'
     ];
+
+    public function semester()
+    {
+        return $this->belongsTo(Semester::class);
+    }
 }
