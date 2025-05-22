@@ -49,11 +49,12 @@
 
                             </td>
                             <td class="p-2 w-1/4">
-                                <span class="inline-block px-3 py-1 text-xs font-semibold text-yellow-800 bg-yellow-100 rounded-full">{{ $item->status === 'pending' ? 'Diproses' : ($item->status === 'accepted' ? 'Diterima' : 'Ditolak') }}</span>
-                            </td>
-                            <td class="p-2 w-1/4">
                                 <span class="inline-block px-3 py-1 text-xs font-semibold ">{{ 'Rp. ' . number_format($item->nominal, 0, ',', '.') }}</span>
                             </td>
+                            <td class="p-2 w-1/4">
+                                <span class="inline-block px-3 py-1 text-xs font-semibold text-yellow-800 bg-yellow-100 rounded-full">{{ $item->status === 'pending' ? 'Diproses' : ($item->status === 'accepted' ? 'Diterima' : 'Ditolak') }}</span>
+                            </td>
+
                             @if($item->status === 'pending')
                             <td class="p-2 w-1/4">
                                 <div class="flex gap-2">
