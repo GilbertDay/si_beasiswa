@@ -14,6 +14,7 @@
                             <th class="p-2 w-1/4"><div class="font-bold text-start">Beasiswa</div></th>
                             <th class="p-2 w-1/4"><div class="font-bold text-left">Tanggal Pengajuan</div></th>
                             <th class="p-2 w-1/4"><div class="font-bold text-start">Dokumen</div></th>
+                            <th class="p-2 w-1/4"><div class="font-bold text-start">Nominal</div></th>
                             <th class="p-2 w-1/4"><div class="font-bold text-start">Status</div></th>
                             <th class="p-2 w-1/4"><div class="font-bold text-start">Aksi</div></th>
                         </tr>
@@ -50,7 +51,9 @@
                             <td class="p-2 w-1/4">
                                 <span class="inline-block px-3 py-1 text-xs font-semibold text-yellow-800 bg-yellow-100 rounded-full">{{ $item->status === 'pending' ? 'Diproses' : ($item->status === 'accepted' ? 'Diterima' : 'Ditolak') }}</span>
                             </td>
-
+                            <td class="p-2 w-1/4">
+                                <span class="inline-block px-3 py-1 text-xs font-semibold ">{{ 'Rp. ' . number_format($item->nominal, 0, ',', '.') }}</span>
+                            </td>
                             @if($item->status === 'pending')
                             <td class="p-2 w-1/4">
                                 <div class="flex gap-2">
