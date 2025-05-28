@@ -18,28 +18,29 @@ class BeasiswaController extends Controller
             'tanggal_tutup' => 'required|date|after:tanggal_buka',
             'syarat' => 'required|string'
         ];
-    
+
         $messages = [
             'tanggal_tutup.after' => 'Tanggal tutup harus setelah tanggal buka.',
         ];
-    
+
         $validator = Validator::make($request->all(), $rules, $messages);
-    
+
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
         }
-    
+
         $beasiswa = new Beasiswa();
         $beasiswa->nama_beasiswa = $request->nama_beasiswa;
-        $beasiswa->semester_id = 1;
+        $beasiswa->semester_id = $request->semester_id;
         $beasiswa->jenis_beasiswa = $request->jenis_beasiswa;
         $beasiswa->tanggal_buka = $request->tanggal_buka;
         $beasiswa->tanggal_tutup = $request->tanggal_tutup;
+        $beasiswa->nominal = $request->nominal;
         $beasiswa->syarat = $request->syarat;
         $beasiswa->save();
-    
+
         return redirect()->route('kategoriBeasiswa')
             ->with('success', 'Beasiswa berhasil ditambah');
     }
@@ -53,30 +54,31 @@ class BeasiswaController extends Controller
             'tanggal_tutup' => 'required|date|after:tanggal_buka',
             'syarat' => 'required|string'
         ];
-    
+
         $messages = [
             'tanggal_tutup.after' => 'Tanggal tutup harus setelah tanggal buka.',
 
         ];
-    
+
         $validator = Validator::make($request->all(), $rules, $messages);
-    
+
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput()
                 ->with('old_input', ['edit_id' => $id]);
         }
-    
+
         $beasiswa = Beasiswa::findOrFail($id);
         $beasiswa->nama_beasiswa = $request->nama_beasiswa;
-        $beasiswa->semester_id = 1;
+        $beasiswa->semester_id = $request->semester_id;
         $beasiswa->jenis_beasiswa = $request->jenis_beasiswa;
         $beasiswa->tanggal_buka = $request->tanggal_buka;
         $beasiswa->tanggal_tutup = $request->tanggal_tutup;
+        $beasiswa->nominal = $request->nominal;
         $beasiswa->syarat = $request->syarat;
         $beasiswa->save();
-    
+
         return redirect()->route('kategoriBeasiswa')
             ->with('success', 'Beasiswa berhasil diperbarui');
     }
@@ -85,7 +87,7 @@ class BeasiswaController extends Controller
     {
         $beasiswa = Beasiswa::findOrFail($id);
         $beasiswa->delete();
-        
+
         return redirect()->route('kategoriBeasiswa')
             ->with('success', 'Beasiswa berhasil dihapus');
     }

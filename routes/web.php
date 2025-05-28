@@ -43,13 +43,14 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/home', [DashboardController::class, 'home'])->name('home'); // setting alamat di controller
     Route::get('/dashboard/pengajuan-beasiswa', [DashboardController::class, 'pengajuanBeasiswa'])->name('pengajuan-beasiswa'); // setting alamat di controller
-    Route::get('/dashboard/riwayat', [DashboardController::class, 'riwayat'])->name('riwayat'); // setting alamat di controller
+    Route::get('/dashboard/riwayat/{id}', [DashboardController::class, 'riwayat'])->name('riwayat'); // setting alamat di controller
     Route::get('/admin/home', [DashboardController::class, 'homeAdmin'])->name('homeAdmin');
     Route::get('/admin/kategori-beasiswa', [DashboardController::class, 'kategoriBeasiswa'])->name('kategoriBeasiswa');
     Route::get('/admin/daftar-pengajuan', [DashboardController::class, 'daftarPengajuan'])->name('daftarPengajuan');
     Route::get('/admin/verifikasi-dokumen', [DashboardController::class, 'verifikasiDokumen'])->name('verifikasiDokumen');
-  
+
     Route::get('/admin/laporan-penerima', [DashboardController::class, 'laporanPenerima'])->name('laporanPenerima');
+    Route::post('/admin/laporan-penerima', [DashboardController::class, 'laporanPenerimaFilter'])->name('laporanPenerimaFilter');
 
 
     //Pengajuan Beasiswa
@@ -87,9 +88,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/ecommerce/pay', function () {
         return view('pages/ecommerce/pay');
     })->name('pay');
-    Route::get('/campaigns', [CampaignController::class, 'index'])->name('campaigns');
-    Route::get('/community/users-tabs', [MemberController::class, 'indexTabs'])->name('users-tabs');
-    Route::get('/community/users-tiles', [MemberController::class, 'indexTiles'])->name('users-tiles');
     Route::get('/community/profile', function () {
         return view('pages/community/profile');
     })->name('profile');
@@ -111,9 +109,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/finance/cards', function () {
         return view('pages/finance/credit-cards');
     })->name('credit-cards');
-    Route::get('/finance/transactions', [TransactionController::class, 'index01'])->name('transactions');
-    Route::get('/finance/transaction-details', [TransactionController::class, 'index02'])->name('transaction-details');
-    Route::get('/job/job-listing', [JobController::class, 'index'])->name('job-listing');
     Route::get('/job/job-post', function () {
         return view('pages/job/job-post');
     })->name('job-post');

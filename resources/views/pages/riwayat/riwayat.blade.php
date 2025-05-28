@@ -36,7 +36,7 @@
                     <!-- Table body -->
                     <tbody class="text-sm font-medium divide-y divide-gray-100 dark:divide-gray-700/60">
                         <!-- Row -->
-                        @foreach ($pengajuans as $pengajuan)   
+                        @foreach ($pengajuans as $pengajuan)
                         <tr>
                             <td class="p-2 w-1/12">
                                 <div class="flex items-start">
@@ -156,6 +156,16 @@
                                         </td>
                                         <td class="p-2 w-1/4">
                                             <div class="text-start text-gray-500">{{ $pengajuan->nom_terima }}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2 w-1/4">
+                                            <div class="flex items-start">
+                                                <div class="text-gray-800 dark:text-gray-100">Nominal</div>
+                                            </div>
+                                        </td>
+                                        <td class="p-2 w-1/4">
+                                            <div class="text-start text-gray-500">{{ 'Rp. ' . number_format($pengajuan->nominal, 0, ',', '.') }}</div>
                                         </td>
                                     </tr>
                                     <!-- Row -->

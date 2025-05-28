@@ -20,10 +20,16 @@
                                 <div class="font-bold text-start">Jenis</div>
                             </th>
                             <th class="p-2 w-1/4">
+                                <div class="font-bold text-start">Semester</div>
+                            </th>
+                            <th class="p-2 w-1/4">
                                 <div class="font-bold text-start">Tanggal Buka</div>
                             </th>
                             <th class="p-2 w-1/4">
                                 <div class="font-bold text-start">Tanggal Tutup</div>
+                            </th>
+                            <th class="p-2 w-1/4">
+                                <div class="font-bold text-start">Nominal</div>
                             </th>
                             <th class="p-2 w-1/4">
                                 <div class="font-bold text-start">Aksi</div>
@@ -46,12 +52,24 @@
                             </td>
                             <td class="p-2 w-1/4">
                                 <div class="flex items-start">
+                                    <div class="text-gray-800 dark:text-gray-100">{{ $beasiswa->semester->kode_semester }}</div>
+                                </div>
+                            </td>
+                            <td class="p-2 w-1/4">
+                                <div class="flex items-start">
                                     <div class="text-gray-800 dark:text-gray-100">{{ $beasiswa->tanggal_buka }}</div>
                                 </div>
                             </td>
                             <td class="p-2 w-1/4">
                                 <div class="flex items-start">
                                     <div class="text-gray-800 dark:text-gray-100">{{ $beasiswa->tanggal_tutup }}</div>
+                                </div>
+                            </td>
+                            <td class="p-2 w-1/4">
+                                <div class="flex items-start">
+                                    <div class="text-gray-800 dark:text-gray-100">
+                                        {{ 'Rp. ' . number_format($beasiswa->nominal, 0, ',', '.') }}
+                                    </div>
                                 </div>
                             </td>
                             <td class="p-2 w-1/4">
