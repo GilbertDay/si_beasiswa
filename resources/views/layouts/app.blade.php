@@ -11,12 +11,30 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet" />
+        <!-- Bootstrap CSS -->
+
+        <!-- Bootstrap Bundle JS (termasuk Popper.js) -->
+        <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
+        <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+        <!-- jQuery (wajib) -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <!-- DataTables JS -->
+        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+        <!-- DataTables CSS -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         <!-- Styles -->
-        @livewireStyles        
+        @livewireStyles
+
+
 
         <script>
             if (localStorage.getItem('dark-mode') === 'false' || !('dark-mode' in localStorage)) {
@@ -32,7 +50,7 @@
         class="font-inter antialiased bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-400"
         :class="{ 'sidebar-expanded': sidebarExpanded }"
         x-data="{ sidebarOpen: false, sidebarExpanded: localStorage.getItem('sidebar-expanded') == 'true' }"
-        x-init="$watch('sidebarExpanded', value => localStorage.setItem('sidebar-expanded', value))"    
+        x-init="$watch('sidebarExpanded', value => localStorage.setItem('sidebar-expanded', value))"
     >
 
         <script>
